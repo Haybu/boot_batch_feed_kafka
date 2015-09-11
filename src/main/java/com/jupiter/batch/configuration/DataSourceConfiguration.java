@@ -1,0 +1,24 @@
+package com.jupiter.batch.configuration;
+
+import javax.sql.DataSource;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+
+/**
+ * Created by hmohamed on 9/10/15.
+ */
+@Configuration
+public class DataSourceConfiguration {
+
+    @Bean
+    public DataSource dataSourcePartner() {
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.HSQL)
+                .ignoreFailedDrops(true)
+                .addScripts("classpath:org/springframework/batch/core/schema-drop-hsqldb.sql",
+                        "classpath:org/springframework/batch/core/schema-hsqldb.sql").build();
+    }
+}
